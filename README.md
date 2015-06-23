@@ -22,6 +22,9 @@ A sample fixture has been added for quotes by
 * Adhere to the standards of Rack and middleware
 * Code is tested with RSpec
 * Quotes come from examples in fixtures directory
+* Share project on github and commit regularly - do not commit all changes at once
+* Prepare to discuss decisions/trade-offs
+* Spend no more than 2 days on the challenge
 
 
 ### Request/Response
