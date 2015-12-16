@@ -1,5 +1,3 @@
-require 'rack'
-
 class QuoteMachine
   def call(env)
     [200, {'Content-Type' => 'text/plain'}, [quote]]
@@ -15,7 +13,3 @@ class QuoteMachine
     IO.readlines('./fixtures/rickygervais.txt')
   end
 end
-
-app = QuoteMachine.new
-
-Rack::Handler::WEBrick.run app
