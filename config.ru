@@ -1,5 +1,7 @@
+ROOT = Dir.getwd
+
 require 'rack'
-require_relative 'lib/quote_middleware'
+require "#{ROOT}/lib/quote_middleware"
 
 use QuoteMiddleware
 
