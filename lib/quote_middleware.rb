@@ -4,7 +4,7 @@ class QuoteMiddleware
   end
 
   def call(env)
-    return [200, {'Content-Type' => 'text/plain'}, [quote]] if env['PATH_INFO'] == "/quote"
+    return [200, {'Content-Type' => 'text/plain'}, [quote]] if env['PATH_INFO'][/^\/quote/]
 
     @app.call(env)
   end
