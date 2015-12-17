@@ -22,7 +22,13 @@ class QuoteMiddleware
   end
 
   def internal_quotes
-    @quotes ||= load_quotes
+    if @quotes
+      @quotes
+    elsif Dir.exists?('fixtures')
+      load_quotes
+    else
+      []
+    end
   end
 
   def load_quotes
