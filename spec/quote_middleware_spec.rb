@@ -19,4 +19,16 @@ RSpec.describe QuoteMiddleware do
   it "passes a test" do
     expect("true").to eq("true")
   end
+
+  context "when URI does not start with '/quote'" do
+    it "should execute the underlying application" do
+      response = request.get "/"
+      expect(response.body).to eq('Underlying App Executed')
+    end
+
+    it "should return a 200 status code" do
+      response = request.get "/"
+      expect(response.status).to eq(200)
+    end
+  end
 end
