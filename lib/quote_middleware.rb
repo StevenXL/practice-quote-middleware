@@ -4,9 +4,11 @@ class QuoteMiddleware
   end
 
   def call(env)
-    return [200, {'Content-Type' => 'text/plain'}, [quote]] if env['PATH_INFO'][/^\/quote/]
-
-    @app.call(env)
+    if env['PATH_INFO'][/^\/quote/]
+      [200, {'Content-Type' => 'text/plain'}, [quote]]
+    else
+      @app.call(env)
+    end
   end
 
   private
@@ -26,12 +28,12 @@ class QuoteMiddleware
   end
 
   def parse(file)
-    file = "#{Dir.getwd}/fixtures/#{file}"
+    file = "#{ROOT}/fixtures/#{file}"
     IO.readlines(file)
   end
 
   def text_files
-    Dir.entries("fixtures").select do |entry|
+    Dir.entries("#{ROOT}/fixtures").select do |entry|
       entry[/\.txt\z/] and !Dir.exists?(entry)
     end
   end
