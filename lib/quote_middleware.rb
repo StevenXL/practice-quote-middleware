@@ -4,10 +4,18 @@ class QuoteMiddleware
   end
 
   def call(env)
-    if env['PATH_INFO'] == "/quote"
-      @app.call(env)
-    else
-      [200, {'Content-Type' => 'text/plain'},['hello']]
-    end
+    return [200, {'Content-Type' => 'text/plain'},[quote]] if env['PATH_INFO'] == "/quote"
+
+    @app.call(env)
+  end
+
+  private
+
+  def quote
+    quotes.sample
+  end
+
+  def quotes
+    @quotes ||= IO.readlines('fixtures/rickygervais.txt')
   end
 end
