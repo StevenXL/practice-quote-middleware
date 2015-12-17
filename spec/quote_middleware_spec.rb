@@ -16,10 +16,6 @@ RSpec.describe QuoteMiddleware do
     allow_any_instance_of(QuoteMiddleware).to receive(:quotes).and_return(stubbed_quotes)
   end
 
-  it "passes a test" do
-    expect("true").to eq("true")
-  end
-
   context "when URI does not start with '/quote'" do
     it "should execute the underlying application" do
       response = request.get "/"
