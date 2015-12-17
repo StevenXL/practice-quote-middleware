@@ -1,3 +1,40 @@
+Authors' Notes
+=========================
+
+### Dependency's
+
+This Rack middleware application depends on the following:
+
+* the 'httparty' gem
+
+While not strictly required, the middleware will not read local files from
+quotes unless:
+* The quotes are contained in text files within the `fixtures` directory. This
+  directory must live in the Application's root.
+* In the `*.txt` files themselves, the quotes need to be delimited by a newline.
+* The `quote_middleware.rb` file itself lives in the `lib` directory, which in
+  turn lives in the Application's root.
+
+### Trade-offs
+In the current implementation of the middleware, all the quotes are loaded into
+a single array, and then a quote is picked at random from that array. This is
+very memory intensive, but it is speedy because:
+1. All the data is loaded into memory
+2. The local / internal quotes are memoized to avoid having to read from disk.
+
+However, if memory was at a premium another possibility is to trade a slower
+application for a more memory efficient one. This could be done as follows:
+
+* First, load the text file *names* (not their actual data), into an array. From
+  that array, pick a name at random.
+* Read only that file's contents, load them into memory, and pick a quote from
+  those contents at random.
+
+Note that, while this is more memory efficient since only one file's contents
+are loaded into memory, it is slower. We have to read from disk every time. (If
+we memoized the contents of a single file, then all other quotes would be
+discarded).
+
 Practice: Rack Middleware
 =========================
 
