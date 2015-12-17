@@ -31,4 +31,16 @@ RSpec.describe QuoteMiddleware do
       expect(response.status).to eq(200)
     end
   end
+
+  context "when the URI is '/quote'" do
+    it "should return a quote" do
+      quote = request.get("/quote").body
+      expect(stubbed_quotes.include?(quote)).to be true
+    end
+
+    it "should return a 200 status code" do
+      response = request.get "/"
+      expect(response.status).to eq(200)
+    end
+  end
 end
