@@ -18,6 +18,10 @@ class QuoteMiddleware
   end
 
   def quotes
+    internal_quotes.concat(api_quote)
+  end
+
+  def internal_quotes
     @quotes ||= load_quotes
   end
 
@@ -28,13 +32,18 @@ class QuoteMiddleware
   end
 
   def parse(file)
-    file = "#{ROOT}/fixtures/#{file}"
+    file = "fixtures/#{file}"
     IO.readlines(file)
   end
 
   def text_files
-    Dir.entries("#{ROOT}/fixtures").select do |entry|
+    Dir.entries("fixtures").select do |entry|
       entry[/\.txt\z/] and !Dir.exists?(entry)
     end
+  end
+
+  def api_quote
+    response = HTTParty.get("http://quotes.stormconsultancy.co.uk/random.json")
+    [JSON.parse(response.body)['quote']]
   end
 end

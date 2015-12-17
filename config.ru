@@ -1,7 +1,8 @@
-ROOT = Dir.getwd
-
+require 'httparty'
+require 'json'
 require 'rack'
-require "#{ROOT}/lib/quote_middleware"
+
+require_relative "lib/quote_middleware"
 
 use QuoteMiddleware
 

@@ -14,6 +14,7 @@ RSpec.describe QuoteMiddleware do
   before(:each) do
     # must use allow_any_instance_of because quotes is a private method
     allow_any_instance_of(QuoteMiddleware).to receive(:quotes).and_return(stubbed_quotes)
+    allow_any_instance_of(QuoteMiddleware).to receive(:api_quote).and_return(['XYZ'])
   end
 
   context "when URI does not start with '/quote'" do
