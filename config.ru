@@ -4,8 +4,6 @@ require 'rack'
 
 require_relative "lib/quote_middleware"
 
-ROOT = Dir.getwd
-
 use QuoteMiddleware
 
 app = lambda do |env|
